@@ -2,13 +2,13 @@
   <div>
     <el-container id="auth-container">
       <el-main>
-        <div id="logo-name" class="animated slideInLeft">
+        <!-- <div id="logo-name" class="animated slideInLeft">
           {{ $store.state.website_name }}
-        </div>
+        </div> -->
         
         <router-view />
 
-        <div class="copyright" v-html="$store.state.copyright"></div>
+        <!-- <div class="copyright" v-html="$store.state.copyright"></div> -->
       </el-main>
     </el-container>
 

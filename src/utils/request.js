@@ -1,4 +1,5 @@
 import axios from 'axios'
+import qs from 'qs'
 import config from '@/config/config'
 import { getToken, removeAll } from '@/utils/auth'
 
@@ -80,6 +81,14 @@ export const post = (url, data = {}, options = {}) => {
     url,
     method: 'post',
     data: data,
+    ...options,
+  })
+}
+export const postQuery = (url, data = {}, options = {}) => {
+  return request({
+    url,
+    method: 'post',
+    data: qs.stringify(data),
     ...options,
   })
 }

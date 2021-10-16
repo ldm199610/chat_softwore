@@ -1,8 +1,8 @@
-import { post, get } from '@/utils/request'
+import { post, get,postQuery } from '@/utils/request'
 
 // 登录服务接口
 export const ServeLogin = data => {
-  return post('/api/v1/auth/login', data)
+  return postQuery('/api/auth/getLoginCode', data)
 }
 
 // 注册服务接口

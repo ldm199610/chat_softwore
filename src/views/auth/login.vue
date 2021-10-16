@@ -8,7 +8,6 @@
             v-model="form.username"
             placeholder="手机号"
             class="cuborder-radius"
-            maxlength="11"
             @keyup.enter.native="onSubmit('form')"
           />
         </el-form-item>
@@ -47,7 +46,7 @@
           </div>
         </el-form-item>
 
-        <p style="margin-top: 50px">
+        <!-- <p style="margin-top: 50px">
           <el-divider>
             <span style="color: rgb(181, 176, 176); font-weight: 200">
               <i class="el-icon-mobile-phone" /> 预览账号
@@ -57,7 +56,7 @@
         <el-form-item class="preview-account">
           <p>预览账号:18798272054 / 密码: admin123</p>
           <p>预览账号:18798272055 / 密码: admin123</p>
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
     </div>
   </div>
@@ -82,19 +81,19 @@ export default {
     return {
       loginLoading: false,
       form: {
-        username: '',
-        password: '',
+        username: 'k001',
+        password: '111111',
       },
       rules: {
         username: [
+          // {
+          //   validator: validateMobile,
+          //   trigger: 'blur',
+          // },
           {
-            validator: validateMobile,
-            trigger: 'blur',
-          },
-          {
-            min: 11,
-            max: 11,
-            message: '手机号格式不正确!',
+            // min: 11,
+            // max: 11,
+            message: '登录账号不能为空!',
             trigger: 'blur',
           },
         ],
@@ -121,9 +120,14 @@ export default {
 
     login() {
       ServeLogin({
-        mobile: this.form.username,
-        password: this.form.password,
-        platform: 'web',
+        account: this.form.username,
+        secret: this.form.password,
+        salt: Math.round(new Date().getTime()),
+        deviceId:'web',
+        mac:'UTXAfjp8PF+gp/Qkrn6MtQ==',
+        areaCode:'86',
+        apiKey:"BFrCyKG16uekl87m",
+        // platform: 'web',
       })
         .then(res => {
           if (res.code == 200) {
