@@ -62,7 +62,8 @@
   </div>
 </template>
 <script>
-import { setToken } from '@/utils/auth'
+import { setToken,getCurrentMilliSeconds,AppConfig } from '@/utils/auth'
+import { EncryptUtils } from '@/utils/encryptUtils'
 import { isMobile } from '@/utils/validate'
 import { ServeLogin } from '@/api/user'
 
@@ -119,38 +120,38 @@ export default {
     },
 
     login() {
-      ServeLogin({
-        account: this.form.username,
-        secret: this.form.password,
-        salt: Math.round(new Date().getTime()),
-        deviceId:'web',
-        mac:'UTXAfjp8PF+gp/Qkrn6MtQ==',
-        areaCode:'86',
-        apiKey:"BFrCyKG16uekl87m",
-        // platform: 'web',
-      })
+      console.log(EncryptUtils,'---');
+      let privateKey = {}
+      privateKey.salt = getCurrentMilliSeconds()
+      privateKey.apiKey = AppConfig().apiKey
+      privateKey.pwd = this.form.username
+      privateKey.areaCode = '86'
+      privateKey.account = this.form.username;
+      ServeLogin(privateKey)
         .then(res => {
-          if (res.code == 200) {
-            let result = res.data
+          console.log(res)
+          if (res.resultCode == 1) {
+            let result = res
 
             // 保存授权信息到本地缓存
-            setToken(result.authorize.access_token, result.authorize.expires_in)
+            // setToken(result.authorize.access_token, result.authorize.expires_in)
+            setToken(result.data.code, result.data.code)
 
-            this.$store.commit('UPDATE_USER_INFO', result.userInfo)
+            this.$store.commit('UPDATE_USER_INFO', result)
             this.$store.commit('UPDATE_LOGIN_STATUS')
 
             // 登录成功后连接 WebSocket 服务器
-            this.$root.initialize()
+            // this.$root.initialize()
             this.toLink('/')
 
-            setTimeout(() => {
-              this.$notify({
-                title: '友情提示',
-                message:
-                  '此站点仅供演示、学习所用，请勿进行非法操作、上传或发布违法资讯。',
-                duration: 0,
-              })
-            }, 3000)
+            // setTimeout(() => {
+            //   this.$notify({
+            //     title: '友情提示',
+            //     message:
+            //       '此站点仅供演示、学习所用，请勿进行非法操作、上传或发布违法资讯。',
+            //     duration: 0,
+            //   })
+            // }, 3000)
           } else {
             this.$notify.info({
               title: '提示',

@@ -27,10 +27,10 @@ export function setToken(token, expires) {
 export function getToken() {
   const result = JSON.parse(
     localStorage.getItem(USER_TOKEN) ||
-      JSON.stringify({
-        token: '',
-        expires: 0,
-      })
+    JSON.stringify({
+      token: '',
+      expires: 0,
+    })
   )
 
   return result.token
@@ -77,4 +77,24 @@ export function removeAll() {
   localStorage.removeItem(USER_TOKEN)
   localStorage.removeItem(USER_INFO)
   localStorage.removeItem(USER_SETTING)
+}
+export function getCurrentMilliSeconds() {
+  return Math.round(new Date().getTime());
+}
+
+export function AppConfig() {
+  return {
+    apiUrl: "http://45.88.14.244:8092", // 接口地址
+    websocketUrl: "ws://45.88.14.244:5260", //xmpp 主机的 地址
+    jitsiServer: "https://meet.server.com/", //jitsi 音视频链接地址
+    uploadServer: "http://45.88.14.244:8088/",
+    uploadServer2: "http://update.pic1001.com:888/",
+    fileServer: "http://pic.uu998122.com:666/",
+    apiKey: "BFrCyKG16uekl87m",
+    isOpenReceipt: 1,
+    isOpenSMSCode: 0, //是否开短信验证码
+    registerInviteCode: 0, //注册邀请码  0：关闭 1:一码一用(注册型邀请码)  2：一码多用（推广型邀请码）
+    regeditPhoneOrName: 0, // 注册方式 0:手机号注册，1：用户名注册
+
+  };
 }

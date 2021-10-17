@@ -1,8 +1,27 @@
-import { post, get,postQuery } from '@/utils/request'
-
+import {
+  post,
+  get,
+  postQuery
+} from '@/utils/request'
+import {
+  EncryptUtils
+} from '@/utils/encryptUtils'
+let CryptoJS = require("crypto-js")
 // 登录服务接口
-export const ServeLogin = data => {
-  return postQuery('/api/auth/getLoginCode', data)
+export const ServeLogin = obj => {
+  let macValue = obj.apiKey + obj.areaCode + obj.account + obj.salt;
+  obj.mac = EncryptUtils.encryptMacToBase64(macValue, EncryptUtils.buildLoginPassword(obj.password));
+  var objParam = {};
+  objParam.areaCode = obj.areaCode;
+  objParam.account = obj.account;
+  objParam.salt = obj.salt;
+  objParam.deviceId = "web";
+  objParam.mac = obj.mac;
+  objParam.access_token = '';
+  objParam.secret = obj.apiKey + EncryptUtils.paramKeySort(obj) + obj.salt
+  objParam.secret = EncryptUtils.encryptMacToBase64(objParam.secret, CryptoJS.enc.Base64.parse(''));
+  console.log(objParam.secret, '---objParam');
+  return postQuery('/api/auth/getLoginCode', objParam)
 }
 
 // 注册服务接口

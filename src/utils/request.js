@@ -85,6 +85,9 @@ export const post = (url, data = {}, options = {}) => {
   })
 }
 export const postQuery = (url, data = {}, options = {}) => {
+  console.log(data,'---');
+  // if(!data.secret){
+  // }
   return request({
     url,
     method: 'post',

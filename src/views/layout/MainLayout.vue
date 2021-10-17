@@ -39,7 +39,7 @@
               </router-link>
             </el-tooltip>
 
-            <el-tooltip
+            <!-- <el-tooltip
               content="我的笔记"
               placement="right"
               :visible-arrow="false"
@@ -49,7 +49,7 @@
                   <i class="el-icon-notebook-1" />
                 </div>
               </router-link>
-            </el-tooltip>
+            </el-tooltip> -->
 
             <el-tooltip
               content="我的设置"
@@ -63,7 +63,7 @@
               </router-link>
             </el-tooltip>
 
-            <el-tooltip
+            <!-- <el-tooltip
               content="Gitub 源码"
               placement="right"
               :visible-arrow="false"
@@ -73,7 +73,7 @@
                   <i class="iconfont icon-github" />
                 </div>
               </a>
-            </el-tooltip>
+            </el-tooltip> -->
           </el-main>
           <el-footer height="60px" class="fixed-sidebar">
             <div class="menu-items" @click="logout">
@@ -105,25 +105,25 @@
     </audio>
 
     <!-- 打赏组件(自行删除) -->
-    <RewardModule />
+    <!-- <RewardModule /> -->
 
     <!-- 广告组件(自行删除) -->
-    <AbsModule />
+    <!-- <AbsModule /> -->
   </div>
 </template>
 <script>
 import { mapState } from 'vuex'
 import UserCard from '@/components/user/UserCard'
-import RewardModule from '@/components/layout/RewardModule'
-import AbsModule from '@/components/layout/AbsModule'
+// import RewardModule from '@/components/layout/RewardModule'
+// import AbsModule from '@/components/layout/AbsModule'
 import { ServeFindFriendApplyNum } from '@/api/contacts'
 
 export default {
   name: 'MainLayout',
   components: {
     UserCard,
-    RewardModule,
-    AbsModule
+    // RewardModule,
+    // AbsModule
   },
   props: {
     idx: {
